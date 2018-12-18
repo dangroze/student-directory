@@ -18,9 +18,20 @@ def input_students
   #return the array of students
   students
 end
+
+def specific_letter
+  puts "Please enter student's first initial"
+  initial = gets.chomp
+  initial
+end
+
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
+end
+
+def print_students(students, initial)
+  students.select {|student| student[:name].chars.first == initial.upcase}
 end
 
 def print(students)
@@ -34,6 +45,8 @@ def print_footer(students)
 end  
 # nothing happens unless we call the methods
 students = input_students
+initial = specific_letter
+initial_students = print_students(students, initial)
 print_header
-print(students)
+print(initial_students)
 print_footer(students)
