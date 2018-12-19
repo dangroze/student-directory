@@ -21,6 +21,7 @@ def input_students
     age: age, height: height}
     puts "Now we have #{students.count} students"
     #get another name from the user
+    puts"Please enter another name, or press enter to skip"
     name = gets.chomp
   end
   #return the array of students
@@ -33,17 +34,17 @@ end
 
 def print_header
   puts "The students of Villains Academy"
-  puts "-------------"
+  puts "--------------------------------"
 end
 
 def print(students)
   tally = 0
   while tally < students.count
-    puts "#{tally + 1}. #{students[tally][:name]}
-    -nationality: #{students[tally][:nationality]} 
-    -age: #{students[tally][:age]}
-    -height: #{students[tally][:height]}
-    -cohort: #{students[tally][:cohort]}"
+    puts "#{tally + 1}. #{students[tally][:name]}".center(32, "-")
+    puts "-nationality: #{students[tally][:nationality]}".center(37) 
+    puts "-age: #{students[tally][:age]}".center(37)
+    puts "-height: #{students[tally][:height]}".center(37)
+    puts "-cohort: #{students[tally][:cohort]}".center(37)
     tally += 1
   end
 end
