@@ -6,7 +6,7 @@ def input_students
   #create an empty array
   students = []
   #get the first name
-  name = gets.chomp
+  name = gets.rstrip
   #while name is not empty, repeat this line
   while !name.empty? do
     puts "Which cohort is the student in?"
@@ -75,10 +75,40 @@ def print_footer(students)
     puts "Overall, we have #{students.count} great students"
   end
 end  
+
+def interactive_menu
+  students = []
+  loop do
+    #1. Print the menu and ask user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit" # 9 because we'll be adding more options
+    #2. Read the input and save it into a variable
+    selection = gets.chomp
+    #3. Do what the user has asked
+    case selection
+      when "1"
+        students = input_students
+      when "2"
+        length = print_students(students)
+        grouped_students = group_cohort(length)
+        print_header
+        print(grouped_students)
+        print_footer(students)
+      when "9"
+        exit # This will cause the program to terminate
+      else
+        puts "I don't know what you mean, try again"
+    end
+  end
+end
+
+interactive_menu
+  
 # nothing happens unless we call the methods
-students = input_students
-length = print_students(students)
-grouped_students = group_cohort(length)
-print_header
-print(grouped_students)
-print_footer(students)
+#students = input_students
+#length = print_students(students)
+#grouped_students = group_cohort(length)
+#print_header
+#print(grouped_students)
+#print_footer(students)
