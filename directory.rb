@@ -77,8 +77,8 @@ def print_menu
   #1. Print the menu and ask user what to do
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to a file"
+  puts "4. Load the list from a file"
   puts "9. Exit" # 9 because we'll be adding more options
 end
 
@@ -90,10 +90,14 @@ def process(selection)
     when "2"
       show_students
     when "3"
-      save_students
+      puts "Enter a file name to save as"
+      filename = STDIN.gets.chomp
+      save_students(filename)
       puts "You have saved students' details to the file."
     when "4"
-      load_students
+      puts "Enter a file to load"
+      filename = STDIN.gets.chomp
+      try_load_students(filename)
       puts "You have loaded the students' details."
     when "9"
       exit
@@ -116,9 +120,9 @@ def interactive_menu
   end
 end
 
-def save_students
+def save_students(filename)
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = 
@@ -138,13 +142,13 @@ def load_students(filename = "students.csv")
   file.close
 end
 
-def try_load_students
-  filename = ARGV.first # first argument from the command line
+def try_load_students(filename)
+  filename = ARGV.first if !ARGV.empty? # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename) # if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
-  else # if it doesn't exist
+  else
     puts "Sorry, #{filename} doesn't exist"
     exit # quit the program
   end
