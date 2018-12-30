@@ -86,12 +86,15 @@ def process(selection)
   case selection
     when "1"
       input_students
+      puts "You have added students' details."
     when "2"
       show_students
     when "3"
       save_students
+      puts "You have saved students' details to the file."
     when "4"
       load_students
+      puts "You have loaded the students' details."
     when "9"
       exit
     else
