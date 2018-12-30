@@ -121,9 +121,6 @@ def interactive_menu
 end
 
 def save_students(filename)
-  # open the file for writing
-  file = File.open(filename, "w")
-  # iterate over the array of students
   @students.each do |student|
     student_data = 
     [student[:name], student[:cohort],student[:nationality],student[:age],
@@ -134,12 +131,12 @@ def save_students(filename)
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    student = line.chomp.split(",")
-    @students << student_hash(student)
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      student = line.chomp.split(",")
+      @students << student_hash(student)
+    end
   end
-  file.close
 end
 
 def try_load_students(filename)
