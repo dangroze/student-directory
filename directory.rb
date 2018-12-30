@@ -18,12 +18,22 @@ def input_students
     age = STDIN.gets.chomp
     puts "What is the student's height?"
     height = STDIN.gets.chomp
-    @students << {name: name, cohort: cohort, nationality: nationality, 
-    age: age, height: height}
+    @students << student_hash([name, cohort,nationality, age, height])
     puts "Now we have #{@students.count} students"
     puts"Please enter another name, or press enter to skip"
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
+end
+
+def student_hash(array)
+  identity_hash = {
+    name: array[0],
+    cohort: array[1],
+    nationality: array[2],
+    age: array[3],
+    height: array[4]
+  }
+  identity_hash
 end
 
 def print_header
@@ -99,7 +109,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -118,8 +128,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    student = line.chomp.split(",")
+    @students << student_hash(student)
   end
   file.close
 end
