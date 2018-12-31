@@ -1,5 +1,5 @@
 @students = []
-
+require 'csv'
 def input_students
   puts "Please enter the names of students"
   puts "To finish, hit return twice"
@@ -75,6 +75,7 @@ end
 
 def print_menu
   #1. Print the menu and ask user what to do
+  puts "Reading from file: #{$0}"
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to a file"
