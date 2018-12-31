@@ -90,14 +90,10 @@ def process(selection)
     when "2"
       show_students
     when "3"
-      puts "Enter a file name to save as"
-      filename = STDIN.gets.chomp
-      save_students(filename)
+      save_students
       puts "You have saved students' details to the file."
     when "4"
-      puts "Enter a file to load"
-      filename = STDIN.gets.chomp
-      try_load_students(filename)
+      load_students
       puts "You have loaded the students' details."
     when "9"
       exit
@@ -120,7 +116,10 @@ def interactive_menu
   end
 end
 
-def save_students(filename)
+def save_students
+  puts "Enter a file name to save as"
+  filename = STDIN.gets.chomp
+  CSV.open(filename, "w")
   @students.each do |student|
     student_data = 
     [student[:name], student[:cohort],student[:nationality],student[:age],
@@ -131,23 +130,24 @@ def save_students(filename)
 end
 
 def load_students(filename = "students.csv")
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      student = line.chomp.split(",")
-      @students << student_hash(student)
-    end
+  puts "Enter a file to load"
+  filename = STDIN.gets.chomp
+  file = CSV.open(filename, "r")
+  file.readlines.each do |line|
+    student = line.chomp.split(",")
+    @students << student_hash(student)
   end
+  file.close
 end
-
-def try_load_students(filename)
-  filename = ARGV.first if !ARGV.empty? # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename) # if it exists
+def try_load_students
+  filename = "students.csv"
+  return if filename.nil?
+  if File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
+    puts "Loaded #{students.count} from #{filename}"
   else
-    puts "Sorry, #{filename} doesn't exist"
-    exit # quit the program
+    puts "Sorry, #{filename} doesn't exist."
+    exit
   end
 end
 
